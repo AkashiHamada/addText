@@ -7,11 +7,12 @@
 		private var	drawer_btn_bl:Boolean = false;//  引き出しのボタンを押したときの切り替え　初期値　引けだしが表示されない
 		//private var lane:MovieClip;// lane
 		// tool
-		private var tool1:MovieClip;
-		private var tool2:MovieClip;
-		private var tool3:MovieClip;
-		private var tool4:MovieClip;
-		private var tool5:MovieClip;
+		public var tool1:MovieClip;
+		public var tool2:MovieClip;
+		public var tool3:MovieClip;
+		public var tool4:MovieClip;
+		public var tool5:MovieClip;
+		public var cover_mc:MovieClip;
 		
 		// tool Array
 		private var _toolNum:Array = [    //  1番目 : 0の場合は引き出し、１の場合はレールの上
@@ -50,24 +51,22 @@
 
 		
 		public function Main() {
-				drawer = new Drawer();
-				
-				drawer.addEventListener(MouseEvent.MOUSE_UP, drawerToolUP);
-			
-			// 引き出しボタンのリスナ
-			drawer_btn.addEventListener(MouseEvent.MOUSE_UP, drawer_btnUP);
-			// lane
-			
-			
+			drawer = new Drawer();
+			cover_mc = new MovieClip();
 		
 			
+			drawer.addChild(cover_mc);
+			
+				
+			drawer.addEventListener(MouseEvent.MOUSE_UP, drawerToolUP);//引き出しの中のツールボタンのリスナ
+			drawer_btn.addEventListener(MouseEvent.MOUSE_UP, drawer_btnUP);// 引き出しボタンのリスナ
 		}
 		
 		
 		
 		
 		
-		
+		// 引き出しの中のツールボタンを離した時
 		public function drawerToolUP(e:MouseEvent):void{
 			var findToolNum:uint;// forを回して見つけ出したツール番号
 			var X:Number = Math.floor(mouseX/80) * 80;
@@ -82,33 +81,62 @@
 				var j:uint =0;
 				for(j; j<3; j++){
 					if(j == 1 && _toolNum[i][j] == X && _toolNum[i][2] == Y && _toolNum[i][0] == 0){
-						trace("押した" + _toolNum[i][0]);
 						findToolNum = i; // ツール番号を入れる
 						_toolNum[i][0] = 1;// ツールがレールに移る
-						trace("押した" + _toolNum[i][0]);
 					}
 					
 				
 				}
 			}
 			
-			trace(findToolNum);
+		 // ツールのインスタンスを作る
 			switch(findToolNum){
-				case 1: tool1 =  new Pen(this, new TestTool());
+				case 1: tool1 =  new Pen1(this, new TestTool());
 					
 						
 						break;
-				case 2:tool2 = new Pen1(this, new TestTool());
+				case 2:tool2 = new Pen2(this, new TestTool());
 				
 					
 						;break;
-				case 3: tool3 = new MovieClip(); tool1.name = "tool3";break;
-				case 4:tool4 = new MovieClip(); tool1.name = "tool4" ;break;
-				case 5: tool5 = new MovieClip(); tool1.name = "tool5";break;
+				case 3: tool3 = new Pen3(this, new TestTool());break;
+				case 4:tool4 = new Pen4(this, new TestTool());break;
+				case 5: tool5 =new Pen5(this, new TestTool());break;
 			}
+			
+			
+			hiddenTool();
+			
+			
+			
+			
+			
+			
+			
 			
 		}
 		
+		public function hiddenTool(){
+			cover_mc.graphics.clear();
+			
+			var i:uint =0;
+		    for(i; i <= 21; i++){
+				
+				if(_toolNum[i][0] ==1){
+					var j:uint =1;
+					for(j; j<3; j++){
+						cover_mc.graphics.beginFill(0x444444, 1.0);
+						cover_mc.graphics.drawRect(_toolNum[i][1],_toolNum[i][2],80,80);
+						cover_mc.graphics.endFill();
+					}
+				}
+				
+			}
+		}
+		
+		
+		
+		// 引き出しボタンを離したとき
 		public function drawer_btnUP(e:MouseEvent):void{
 			if(drawer_btn_bl){
 				drawer_btn_bl= false;
@@ -123,6 +151,12 @@
 			}
 			
 		}
+		
+		
+		
+		
+		
+		//セッター　ゲッター
 		
 		public function set toolNum(array:Array){
 			_toolNum = array;

@@ -18,12 +18,19 @@
 		}
 		
 		public function mouseUP(e:MouseEvent):void{
-			if(e.target.name == tool_mc.name){
-				mc.toolNum[Number(tool_mc.name)][0]   = 0;
+			var tmp_name:String = tool_mc.name;
+			if(e.target.name == tmp_name ){
+				
+				mc.toolNum[Number(tmp_name)][0]   = 0;
 				mc.lane.removeChild(tool_mc);
 				mc.lane.removeEventListener(MouseEvent.MOUSE_UP, mouseUP);
+				mc.hiddenTool();
+				
+				mc["tool"+ tmp_name] = null;
+				mc = null;
 				tool_mc = null;
-				trace(e.target.name);
+				
+				
 				
 			}
 			

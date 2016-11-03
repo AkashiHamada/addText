@@ -6,16 +6,15 @@
 
 		public function Pen1(mc:MovieClip, tool_mc:MovieClip) {
 			super(mc,tool_mc);
-			tool_mc.name = "2";
+			tool_mc.name = "1";
 			tool_mc.y = 950;
-			tool_mc.x = 80;
 
 		
 		}
 		
-		override protected function exe(){
+		/*override protected function exe(){
 			
-		}
+		}*/
 		
 	
 
