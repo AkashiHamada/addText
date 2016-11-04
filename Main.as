@@ -12,6 +12,17 @@
 		public var tool3:MovieClip;
 		public var tool4:MovieClip;
 		public var tool5:MovieClip;
+		public var tool6:MovieClip;
+		public var tool7:MovieClip;
+		public var tool8:MovieClip;
+		public var tool9:MovieClip;
+		public var tool10:MovieClip;
+		public var tool11:MovieClip;
+		public var tool12:MovieClip;
+		public var tool13:MovieClip;
+		public var tool14:MovieClip;
+		public var tool15:MovieClip;
+		public var tool16:MovieClip;
 		public var cover_mc:MovieClip;
 		
 		// tool Array
@@ -45,6 +56,31 @@
 									
 										
 									];
+										
+		public var toolOnLane:Array = [
+											
+											[-1, 0, 950],
+											[-1, 80, 950],
+											[-1, 160, 950],
+											[-1, 240, 950],
+											[-1, 320, 950],
+											[-1, 400, 950],
+											[-1, 480, 950],
+											[-1, 560, 950],
+											[-1, 640, 950],
+											
+											
+											[-1, 0, 1030],
+											[-1, 80, 1030],
+											[-1, 160, 1030],
+											[-1, 240, 1030],
+											[-1, 320, 1030],
+											[-1, 400, 1030],
+											[-1, 480, 1030],
+											[-1, 560, 1030],
+											[-1, 640, 1030],
+									];
+		
 									
 		private var drawer:MovieClip; // 引き出しのパネル
 		
@@ -89,6 +125,11 @@
 				}
 			}
 			
+			
+		//　レール番号の配列に登録
+			
+		
+			
 		 // ツールのインスタンスを作る
 			switch(findToolNum){
 				case 1: tool1 =  new Pen1(this, new TestTool());
@@ -96,14 +137,27 @@
 						
 						break;
 				case 2:tool2 = new Pen2(this, new TestTool());
+						
 				
 					
 						;break;
 				case 3: tool3 = new Pen3(this, new TestTool());break;
 				case 4:tool4 = new Pen4(this, new TestTool());break;
 				case 5: tool5 =new Pen5(this, new TestTool());break;
+				case 6: tool6 =new Pen6(this, new TestTool());break;
+				case 7: tool7 =new Pen7(this, new TestTool());break;
+				case 8: tool8 =new Pen8(this, new TestTool());break;
+				case 9: tool9 =new Pen9(this, new TestTool());break;
+				case 10: tool10 =new Pen10(this, new TestTool());break;
+				case 11: tool10 =new Pen11(this, new TestTool());break;
+				case 12: tool12 =new Pen12(this, new TestTool());break;
+				case 13: tool13 =new Pen13(this, new TestTool());break;
+				case 14: tool14 =new Pen14(this, new TestTool());break;
+				case 15: tool15 =new Pen15(this, new TestTool());break;
+				case 16: tool16 =new Pen16(this, new TestTool());break;
+				//case 9: tool9 =new Pen9(this, new TestTool());break;
 			}
-			
+		
 			
 			hiddenTool();
 			
