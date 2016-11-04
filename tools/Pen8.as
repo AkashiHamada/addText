@@ -2,13 +2,12 @@
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	
-	public class Pen5 extends Tools{
+	public class Pen8 extends Tools{
 
-		public function Pen5(mc:MovieClip, tool_mc:MovieClip) {
-			tool_mc.name = "5";
-			super(mc,tool_mc);
+		public function Pen8(mc:MovieClip, tool_mc:MovieClip) {
 			
-		
+			tool_mc.name = "8";
+			super(mc,tool_mc);
 			
 
 		

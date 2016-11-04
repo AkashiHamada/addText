@@ -5,10 +5,9 @@
 	public class Pen1 extends Tools{
 
 		public function Pen1(mc:MovieClip, tool_mc:MovieClip) {
+				tool_mc.name = "1";
 			super(mc,tool_mc);
-			tool_mc.name = "1";
-			tool_mc.y = 950;
-
+			
 		
 		}
 		

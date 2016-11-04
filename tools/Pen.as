@@ -7,7 +7,7 @@
 		public function Pen(mc:MovieClip, tool_mc:MovieClip) {
 			super(mc,tool_mc);
 			tool_mc.name = "1";
-			tool_mc.y = 950;
+		
 
 		
 		}

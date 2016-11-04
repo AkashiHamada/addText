@@ -5,10 +5,10 @@
 	public class Pen3 extends Tools{
 
 		public function Pen3(mc:MovieClip, tool_mc:MovieClip) {
-			super(mc,tool_mc);
 			tool_mc.name = "3";
-			tool_mc.x = 160;
-			tool_mc.y = 950;
+			super(mc,tool_mc);
+			
+		
 			
 
 		
