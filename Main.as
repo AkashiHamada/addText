@@ -1,6 +1,7 @@
 ﻿package {
 	import flash.display.MovieClip;
 	import flash.events.MouseEvent;
+	import flash.utils.getTimer;
 	import tools.*;
 	
 	public class Main extends MovieClip {
@@ -83,33 +84,35 @@
 		
 									
 		private var drawer:MovieClip; // 引き出しのパネル
-		
+		private var downTime:Number = 0;// （”引き出しの中”）でダウンした瞬間
 
 		
 		public function Main() {
 			drawer = new Drawer();
 			cover_mc = new MovieClip();
 		
-			
 			drawer.addChild(cover_mc);
-			
-				
-			drawer.addEventListener(MouseEvent.MOUSE_UP, drawerToolUP);//引き出しの中のツールボタンのリスナ
-			drawer_btn.addEventListener(MouseEvent.MOUSE_UP, drawer_btnUP);// 引き出しボタンのリスナ
+			drawer.addEventListener(MouseEvent.MOUSE_DOWN, drawerToolDOWN);//("引き出しの中")のツールボタンのリスナ
+			drawer.addEventListener(MouseEvent.MOUSE_UP, drawerToolUP);//("引き出しの中")のツールボタンのリスナ
+			drawer_btn.addEventListener(MouseEvent.MOUSE_UP, drawer_btnUP);// ("引き出しボタン")のリスナ
 		}
 		
 		
 		
+		public function drawerToolDOWN(e:MouseEvent):void{
+			downTime = getTimer();// ダウンした瞬間
+		}
 		
-		
-		// 引き出しの中のツールボタンを離した時
+		// ("引き出しの中") のツールボタンを離した時
 		public function drawerToolUP(e:MouseEvent):void{
+			var upTime:Number= getTimer();// アップした瞬間
 			var findToolNum:uint;// forを回して見つけ出したツール番号
 			var X:Number = Math.floor(mouseX/80) * 80;
 			var Y:Number;
 			if(mouseY - (Math.floor(mouseY/100) * 100) < 80){
 				Y = Math.floor(mouseY/100) * 100;
 			}
+			
 			
 			//  座標から、ツール番号をだす
 			var i:uint =0;
@@ -118,74 +121,77 @@
 				for(j; j<3; j++){
 					if(j == 1 && _toolNum[i][j] == X && _toolNum[i][2] == Y && _toolNum[i][0] == 0){
 						findToolNum = i; // ツール番号を入れる
-						_toolNum[i][0] = 1;// ツールがレールに移る
+						
 					}
 					
 				
 				}
 			}
 			
-			
-		//　レール番号の配列に登録
-			
-		
-			
-		 // ツールのインスタンスを作る
-			switch(findToolNum){
-				case 1: tool1 =  new Pen1(this, new TestTool());
+			// 長押し
+			if((upTime - downTime) >1200){
+					 // ツールのインスタンスを作る
+					switch(findToolNum){
+						case 1: tool1 =  new Pen1(this, new TestTool());
+							
+								
+								break;
+						case 2:tool2 = new Pen2(this, new TestTool());
+								
+						
+							
+								;break;
+						case 3: tool3 = new Pen3(this, new TestTool());break;
+						case 4:tool4 = new Pen4(this, new TestTool());break;
+						case 5: tool5 =new Pen5(this, new TestTool());break;
+						case 6: tool6 =new Pen6(this, new TestTool());break;
+						case 7: tool7 =new Pen7(this, new TestTool());break;
+						case 8: tool8 =new Pen8(this, new TestTool());break;
+						case 9: tool9 =new Pen9(this, new TestTool());break;
+						case 10: tool10 =new Pen10(this, new TestTool());break;
+						case 11: tool10 =new Pen11(this, new TestTool());break;
+						case 12: tool12 =new Pen12(this, new TestTool());break;
+						case 13: tool13 =new Pen13(this, new TestTool());break;
+						case 14: tool14 =new Pen14(this, new TestTool());break;
+						case 15: tool15 =new Pen15(this, new TestTool());break;
+						case 16: tool16 =new Pen16(this, new TestTool());break;
+						//case 9: tool9 =new Pen9(this, new TestTool());break;
+					}
+				
+					_toolNum[findToolNum][0] = 1;// ツールがレールに登録
+					hiddenTool();// ツールの表示を隠す
 					
-						
-						break;
-				case 2:tool2 = new Pen2(this, new TestTool());
-						
+					
+			}else{
+			// 長押しでない
 				
 					
-						;break;
-				case 3: tool3 = new Pen3(this, new TestTool());break;
-				case 4:tool4 = new Pen4(this, new TestTool());break;
-				case 5: tool5 =new Pen5(this, new TestTool());break;
-				case 6: tool6 =new Pen6(this, new TestTool());break;
-				case 7: tool7 =new Pen7(this, new TestTool());break;
-				case 8: tool8 =new Pen8(this, new TestTool());break;
-				case 9: tool9 =new Pen9(this, new TestTool());break;
-				case 10: tool10 =new Pen10(this, new TestTool());break;
-				case 11: tool10 =new Pen11(this, new TestTool());break;
-				case 12: tool12 =new Pen12(this, new TestTool());break;
-				case 13: tool13 =new Pen13(this, new TestTool());break;
-				case 14: tool14 =new Pen14(this, new TestTool());break;
-				case 15: tool15 =new Pen15(this, new TestTool());break;
-				case 16: tool16 =new Pen16(this, new TestTool());break;
-				//case 9: tool9 =new Pen9(this, new TestTool());break;
+				trace("長押しでない");	
+					
+					
+					
+					
+				}
 			}
-		
-			
-			hiddenTool();
-			
-			
-			
-			
-			
-			
-			
-			
-		}
-		
+				
 		public function hiddenTool(){
-			cover_mc.graphics.clear();
-			
-			var i:uint =0;
-		    for(i; i <= 21; i++){
-				
-				if(_toolNum[i][0] ==1){
-					var j:uint =1;
-					for(j; j<3; j++){
-						cover_mc.graphics.beginFill(0x444444, 1.0);
-						cover_mc.graphics.drawRect(_toolNum[i][1],_toolNum[i][2],80,80);
-						cover_mc.graphics.endFill();
+					cover_mc.graphics.clear();
+					
+					var i:uint =0;
+					for(i; i <= 21; i++){
+						
+						if(_toolNum[i][0] ==1){
+							var j:uint =1;
+							for(j; j<3; j++){
+								cover_mc.graphics.beginFill(0x444444, 1.0);
+								cover_mc.graphics.drawRect(_toolNum[i][1],_toolNum[i][2],80,80);
+								cover_mc.graphics.endFill();
+							}
+						}
+						
 					}
-				}
-				
-			}
+			
+		
 		}
 		
 		

@@ -7,14 +7,19 @@
 		public function Pen(mc:MovieClip, tool_mc:MovieClip) {
 			super(mc,tool_mc);
 			tool_mc.name = "1";
-		
+			
+			
+			
 
 		
 		}
 		
-		/*override protected function exe(){
-			
-		}*/
+		public function exe(){
+			super();
+			trace("pen");
+		}
+		
+		
 		
 	
 

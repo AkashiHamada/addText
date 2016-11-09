@@ -13,9 +13,12 @@
 		
 		}
 		
-		/*override protected function exe(){
-			
-		}*/
+		
+		
+		override protected function exe(){
+			super.exe();
+			trace("pen10");
+		}
 		
 	
 
