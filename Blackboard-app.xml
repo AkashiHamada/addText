@@ -33,7 +33,7 @@
     
     <renderMode>auto</renderMode>
     <autoOrients>false</autoOrients>
-    <aspectRatio>landscape</aspectRatio>
+    
   </initialWindow>
   <icon/>
   <customUpdateUI>false</customUpdateUI>

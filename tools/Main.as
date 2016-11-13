@@ -4,19 +4,7 @@
 	import flash.utils.getTimer;
 	import tools.*;
 	import flash.display.Sprite;
-	
-	// カメラ
 	import flash.media.CameraRoll;
-	import flash.events.Event;
-	import flash.events.IOErrorEvent;
-	import flash.events.MediaEvent;
-	import flash.media.MediaPromise;
-
-	//import flash.display.LoaderInfo;
-	import flash.text.TextField;
-	
-	import flash.display.Loader;
-	import flash.display.LoaderInfo;
 	
 	public class Main extends MovieClip {
 		private var	drawer_btn_bl:Boolean = false;//  引き出しのボタンを押したときの切り替え　初期値　引けだしが表示されない
@@ -98,15 +86,13 @@
 									
 		private var drawer:MovieClip; // 引き出しのパネル
 		private var downTime:Number = 0;// （”引き出しの中”）でダウンした瞬間
-		private var start_sp:Sprite;// （start画面)
-		private var cameraRoll_btn:Sprite;//　（start画面)カメラロールのボタン
-	
-		private var text_field:TextField; // （start画面)てきすと
-
-		public var loaderClass:LoaderClass;
+		private var start_sp:Sprite;// スタート画面
+		private var cameraRoll_btn:Sprite://カメラロールのボタン
+		
 		public function Main() {
 			drawer = new Drawer();
 			cover_mc = new MovieClip();
+		;
 			
 		
 			drawer.addChild(cover_mc);
@@ -114,62 +100,14 @@
 			drawer.addEventListener(MouseEvent.MOUSE_UP, drawerToolUP);//("引き出しの中")のツールボタンのリスナ
 			drawer_btn.addEventListener(MouseEvent.MOUSE_UP, drawer_btnUP);// ("引き出しボタン")のリスナ
 			
-			loaderClass = new LoaderClass(this);
-			startScreen();
 			
 			
-		}
-		
-		//　（start画面）
-		public function startScreen(){
-		
-				
-		
-					
 			start_sp = new Sprite();
 			start_sp.graphics.beginFill(0x009900,1.0);
-			start_sp.graphics.drawRect(0,0,720, 1280);
+			starg_sp.graphics.drawRect(0,0,720, 1280);
 			cameraRoll_btn = new TestTool();
-			cameraRoll_btn.addEventListener(MouseEvent.CLICK, loaderClass.cameraRoll_click);
-			
-				
-						// テキストフィールドを作成
-			text_field = new TextField();
-			text_field.x = 10;
-			text_field.y = stage.stageHeight - 200 - 10;
-			text_field.width = stage.stageWidth - 20;
-			text_field.height = 200;
-			text_field.border = true;
-			
-		
-			
-			start_sp.addChild(text_field);
-			start_sp.addChild(cameraRoll_btn);
-				
-		    addChild(start_sp);
-			
-			
-			}
-			
-		public function removeScreen(){
-			
-					
-					
-					
-					start_sp.removeChild(text_field);
-					start_sp.removeChild(cameraRoll_btn);
-					removeChild(start_sp);
-				//	removeChild(loader);
-					
-					
-					text_field = null;
-					cameraRoll_btn = null;
-					start_sp = null;
-				
-			
-			
-			
-					loaderClass = null;
+			start_sp.addChild(cameraRoll_btn)
+			addChild(start_sp);
 		}
 		
 		
@@ -282,8 +220,6 @@
 			}
 		}
 
-		
-		
 		
 		
 		//セッター　ゲッター
