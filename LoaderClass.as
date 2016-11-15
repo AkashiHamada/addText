@@ -23,7 +23,7 @@
 		private var mc:MovieClip;
 		private var camera_roll:CameraRoll;
 		private var info:LoaderInfo;
-		private	var loader:Loader; // （start画面)　画像のロード
+		public	var loader:Loader; // （start画面)　画像のロード
 		public function LoaderClass(mc:MovieClip) {
 				this.mc = mc;
 			
@@ -63,14 +63,17 @@
 		}
 		
 		 public function infoComplete(e:Event):void{
+				
 					
-					mc.addChild(loader);
-					mc.setChildIndex(loader, 0);
+					/*mc.addChild(loader);
+					mc.setChildIndex(loader, 0);*/
+					
+					
 					// 削除を呼ぶ
 					mc.removeScreen();
 					camera_roll.removeEventListener(MediaEvent.SELECT, cemera_roll_event);
-					info.addEventListener(Event.COMPLETE, infoComplete);
-					info.addEventListener(IOErrorEvent.IO_ERROR, infoError);
+					info.removeEventListener(Event.COMPLETE, infoComplete);
+					info.removeEventListener(IOErrorEvent.IO_ERROR, infoError);
 			 
 					camera_roll = null;
 					info = null;

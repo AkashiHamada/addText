@@ -18,6 +18,11 @@
 	import flash.display.Loader;
 	import flash.display.LoaderInfo;
 	
+	import flash.display.Bitmap;
+	import flash.display.BitmapData;
+	
+	import flash.geom.Matrix;
+	
 	public class Main extends MovieClip {
 		private var	drawer_btn_bl:Boolean = false;//  引き出しのボタンを押したときの切り替え　初期値　引けだしが表示されない
 		// tool
@@ -102,9 +107,14 @@
 		private var cameraRoll_btn:Sprite;//　（start画面)カメラロールのボタン
 	
 		private var text_field:TextField; // （start画面)てきすと
-
+		
+		private var bitmap:Bitmap;
+		private var bitmapData:BitmapData;
 		public var loaderClass:LoaderClass;
 		public function Main() {
+			bitmap = new Bitmap();
+			
+			
 			drawer = new Drawer();
 			cover_mc = new MovieClip();
 			
@@ -114,7 +124,7 @@
 			drawer.addEventListener(MouseEvent.MOUSE_UP, drawerToolUP);//("引き出しの中")のツールボタンのリスナ
 			drawer_btn.addEventListener(MouseEvent.MOUSE_UP, drawer_btnUP);// ("引き出しボタン")のリスナ
 			
-			loaderClass = new LoaderClass(this);
+			
 			startScreen();
 			
 			
@@ -124,7 +134,7 @@
 		public function startScreen(){
 		
 				
-		
+			loaderClass = new LoaderClass(this);
 					
 			start_sp = new Sprite();
 			start_sp.graphics.beginFill(0x009900,1.0);
@@ -146,20 +156,38 @@
 			start_sp.addChild(text_field);
 			start_sp.addChild(cameraRoll_btn);
 				
-		    addChild(start_sp);
+		    stage.addChild(start_sp);
 			
 			
 			}
 			
+			//  (start画面)を壊し、　ビットマップにデータを入れる
 		public function removeScreen(){
-			
 					
+					var loader:Loader = loaderClass.loader;
+					var loader_width:Number = loader.width;
+					var loader_height:Number = loader.height;
+				
 					
+					var matrix = new Matrix();
+					if(loader_width > loader_height){
+						var rate:Number  =  1280/loader_width;
+						matrix.rotate(Math.PI / 180 * 90);
+						matrix.translate(loader_height,0);
+						matrix.scale(720/loader_height, 720/loader_height);
+					}
+
+					bitmapData = new BitmapData(loader_width, loader_height, true, 0xffffffff);
+					bitmapData.draw(loader,matrix);
+					bitmap.bitmapData = bitmapData;
+				
+					stage.addChild(bitmap);
+					stage.setChildIndex(bitmap, 0);
 					
 					start_sp.removeChild(text_field);
 					start_sp.removeChild(cameraRoll_btn);
-					removeChild(start_sp);
-				//	removeChild(loader);
+					stage.removeChild(start_sp);
+				//	stage.removeChild(loader);
 					
 					
 					text_field = null;
@@ -271,13 +299,14 @@
 		public function drawer_btnUP(e:MouseEvent):void{
 			if(drawer_btn_bl){
 				drawer_btn_bl= false;
-				removeChild(drawer);
+				stage.removeChild(drawer);
 			}else{
 				drawer_btn_bl= true;
 					// 引き出しのパネル 
 			
-				addChild(drawer);
-				setChildIndex(drawer_btn, numChildren -1);
+				stage.addChild(drawer);
+				stage.setChildIndex(drawer, stage.numChildren -1);
+				//stage.setChildIndex(drawer_btn, stage.numChildren -1);
 					
 			}
 		}
