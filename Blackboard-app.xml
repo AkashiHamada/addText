@@ -19,7 +19,7 @@
 <application xmlns="http://ns.adobe.com/air/application/21.0">
   <id>Blackboard</id>
   <versionNumber>1.0.0</versionNumber>
-  <versionLabel></versionLabel>
+  <versionLabel/>
   <filename>Blackboard</filename>
   <description/>
   <name>Blackboard</name>

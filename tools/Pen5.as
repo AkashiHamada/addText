@@ -16,7 +16,7 @@
 		
 		override protected  function exe(){
 			super.exe();
-			trace("pen5");
+			mc.swtchMode("rotate");
 			
 		}
 	

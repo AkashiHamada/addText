@@ -23,6 +23,7 @@
 			
 			
 				var i:uint =0;
+			// レール上の順番
 			for(i; i<18; i++){
 				if(mc.toolOnLane[i][0] == -1){
 					mc.toolOnLane[i][0] =tool_mc.name;
@@ -75,7 +76,7 @@
 					mc["tool"+ tmp_name] = null;
 					mc = null;
 					tool_mc = null;
-		
+					trace("aaaaaaaaaaaa");
 				}else{
 				// 長押しでない場合　exe()
 					exe();

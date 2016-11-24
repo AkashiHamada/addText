@@ -15,7 +15,7 @@
 		
 		override protected  function exe(){
 			super.exe();
-			trace("pen4");
+		mc.swtchMode("scale");
 			
 		}
 	
